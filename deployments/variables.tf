@@ -14,6 +14,11 @@
  * limitations under the License.
  */
 
+variable "project" {
+  description = "Project sample project id."
+  type        = string
+}
+
 variable "labels" {
   description = "Targets VM instances matching ANY of these GroupLabels."
   type        = map(string)

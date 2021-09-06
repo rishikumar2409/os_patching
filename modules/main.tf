@@ -24,7 +24,7 @@ resource "random_pet" "suffix" {
 
 resource "google_os_config_patch_deployment" "patch" {
   patch_deployment_id = "patch-deploy-inst-${local.name_suffix}"
-
+  project             = var.project
   instance_filter {
     group_labels {
       labels = var.labels

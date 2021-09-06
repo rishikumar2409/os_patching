@@ -16,6 +16,7 @@
 
 module "os_config_patch_deployment_full" {
   source                                                          = "../modules"
+  project                                                         = var.project
   labels                                                          = var.labels
   instance_name_prefixes                                          = var.instance_name_prefixes
   zones                                                           = var.zones
