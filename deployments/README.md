@@ -1,3 +1,61 @@
+# Os Config Patch Deployment Full - Terraform
+
+Use OS patch management to apply operating system patches across a set of Compute Engine VM instances (VMs). Long running VMs require periodic system updates to protect against defects and vulnerabilities.<br>
+A patch deployment is initiated by making a call to the Patch API (also known as the Cloud OS Config API). This can be done by using either the Google Cloud Console, gcloud command-line tool, or a direct API call. Then the Patch API notifies the OS Config agent that is running on the target VMs to start patching.
+
+This module allows easy creation of os config patch deployment.
+
+The resources that this module will create/trigger are:
+
+- Patch deployment, which automates the operating system and software patch update process. A patch deployment schedules patch jobs. A patch job runs across VM instances and applies patches.
+
+## Usage
+
+Basic usage of this module is as follows:
+
+```hcl
+module "os_config_patch_deployment_full" {
+  source                                                          = "../modules"
+  project                                                         = "<Project_id>"
+  labels                                                          = {labels}
+  instance_name_prefixes                                          = ["<instance_prefixes>"]
+  zones                                                           = ["<zones>"]
+  patch_reboot_config                                             = "<reboot_config>"
+  apt_type                                                        = "<type>"
+  apt_excludes                                                    = ["<excludes>"]
+  yum_security                                                    = <true|false>
+  yum_minimal                                                     = <true|false>
+  yum_excludes                                                    = ["<excludes>"]
+  goo_enabled                                                     = <true|false>
+  zypper_categories                                               = ["<categories>"]
+  windows_update_classifications                                  = ["<classifications>"]
+  pre_step_linux_exec_step_config_allowed_success_codes           = <allowed_success_codes>
+  pre_step_linux_exec_step_config_local_path                      = "<local_path>"
+  pre_step_windows_exec_step_config_interpreter                   = "<interpreter>"
+  pre_step_windows_exec_step_config_allowed_success_codes         = <allowed_success_codes>
+  pre_step_windows_exec_step_config_local_path                    = "<local_path>"
+  post_step_linux_exec_step_config_gcs_object_bucket              = "<bucket>"
+  post_step_linux_exec_step_config_gcs_object_generation_number   = "<generation_number>"
+  post_step_linux_exec_step_config_gcs_object_object              = "<object>"
+  post_step_windows_exec_step_config_interpreter                  = "<interpreter>"
+  post_step_windows_exec_step_config_gcs_object_bucket            = "<bucket>"
+  post_step_windows_exec_step_config_gcs_object_generation_number = "<generation_number>"
+  post_step_windows_exec_step_config_gcs_object_object            = "<object>"
+  duration                                                        = "<duration in sec.>"
+  recurring_schedule_time_zone_id                                 = "<time_zone>"
+  recurring_schedule_time_of_day_hours                            = <hours>
+  recurring_schedule_time_of_day_minutes                          = <minutes>
+  recurring_schedule_time_of_day_seconds                          = <seconds>
+  recurring_schedule_time_of_day_nanos                            = <nanos>
+  monthly_week_day_of_month_week_ordinal                          = <week_ordinal>
+  monthly_week_day_of_month_day_of_week                           = "<day_of_week>"
+  rollout_mode                                                    = "<mode>"
+  rollout_disruption_budget_fixed                                 = <fixed>
+}
+```
+
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+
 ## Inputs
 
 | Name | Description | Type | Default | Required |
@@ -23,6 +81,7 @@
 | pre\_step\_windows\_exec\_step\_config\_allowed\_success\_codes | Defaults to [0]. A list of possible return values that the execution can return to indicate a success. | `list(number)` | <pre>[<br>  0,<br>  2<br>]</pre> | no |
 | pre\_step\_windows\_exec\_step\_config\_interpreter | The script interpreter to use to run the script. If no interpreter is specified the script will be executed directly, which will likely only succeed for scripts with shebang lines. Possible values are SHELL and POWERSHELL. | `string` | `"SHELL"` | no |
 | pre\_step\_windows\_exec\_step\_config\_local\_path | An absolute path to the executable on the VM. | `string` | `"C:\\Users\\user\\pre-patch-script.cmd"` | no |
+| project | Project sample project id. | `string` | `N/A` | Yes |
 | recurring\_schedule\_time\_of\_day\_hours | Hours of day in 24 hour format. Should be from 0 to 23. | `number` | `0` | no |
 | recurring\_schedule\_time\_of\_day\_minutes | Minutes of hour of day. Must be from 0 to 59. | `number` | `30` | no |
 | recurring\_schedule\_time\_of\_day\_nanos | Fractions of seconds in nanoseconds. Must be from 0 to 999,999,999. | `number` | `20` | no |
@@ -42,5 +101,22 @@
 | Name | Description |
 |------|-------------|
 | output\_id | An identifier for the resource with format {{name}}. |
-| last\_execute\_time | The last time a patch job was started by this deployment. |
 | name | Unique name for the patch deployment resource in a project. |
+
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+
+## Requirements
+
+These sections describe requirements for using this module.
+
+### IAM
+
+Service account or user credentials with the following roles must be used to provision the resources of this module:
+
+- PatchDeployment Admin: `roles/osconfig.patchDeploymentAdmin` to create os config patch deployment
+
+### API
+
+- Enable `VM Manager (OS Config API)`.
+
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

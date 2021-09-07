@@ -1,3 +1,9 @@
+# Legal
+
+Copyright 2021 Google LLC. This software is provided as is, without warranty or representation for any use or purpose. Your use of it is subject to your agreement with Google.
+
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+
 ## Inputs
 
 | Name | Description | Type | Default | Required |
@@ -23,6 +29,7 @@
 | pre\_step\_windows\_exec\_step\_config\_allowed\_success\_codes | Defaults to [0]. A list of possible return values that the execution can return to indicate a success. | `list(number)` | <pre>[<br>  0,<br>  2<br>]</pre> | no |
 | pre\_step\_windows\_exec\_step\_config\_interpreter | The script interpreter to use to run the script. If no interpreter is specified the script will be executed directly, which will likely only succeed for scripts with shebang lines. Possible values are SHELL and POWERSHELL. | `string` | `"SHELL"` | no |
 | pre\_step\_windows\_exec\_step\_config\_local\_path | An absolute path to the executable on the VM. | `string` | `"C:\\Users\\user\\pre-patch-script.cmd"` | no |
+| project | Project sample project id. | `string` | `N/A` | Yes |
 | recurring\_schedule\_time\_of\_day\_hours | Hours of day in 24 hour format. Should be from 0 to 23. | `number` | `0` | no |
 | recurring\_schedule\_time\_of\_day\_minutes | Minutes of hour of day. Must be from 0 to 59. | `number` | `30` | no |
 | recurring\_schedule\_time\_of\_day\_nanos | Fractions of seconds in nanoseconds. Must be from 0 to 999,999,999. | `number` | `20` | no |
@@ -42,5 +49,6 @@
 | Name | Description |
 |------|-------------|
 | output\_id | An identifier for the resource with format {{name}}. |
-| last\_execute\_time | The last time a patch job was started by this deployment. |
 | name | Unique name for the patch deployment resource in a project. |
+
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

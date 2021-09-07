@@ -23,8 +23,3 @@ output "name" {
   description = "Unique name for the patch deployment resource in a project."
   value       = module.os_config_patch_deployment_full.name
 }
-
-output "last_execute_time" {
-  description = "The last time a patch job was started by this deployment."
-  value       = module.os_config_patch_deployment_full.last_execute_time
-}

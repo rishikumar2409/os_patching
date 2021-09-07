@@ -23,8 +23,3 @@ output "name" {
   description = "Unique name for the patch deployment resource in a project."
   value       = google_os_config_patch_deployment.patch.name
 }
-
-output "last_execute_time" {
-  description = "The last time a patch job was started by this deployment."
-  value       = google_os_config_patch_deployment.patch.last_execute_time
-}
